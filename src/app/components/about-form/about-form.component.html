@@ -1,0 +1,234 @@
+<div class="d-flex justify-content-center component-margin-top">
+  <div class="container">
+    <h2>Enter your details:</h2>
+    <form [formGroup]="AboutForm">
+      <div class="form-group">
+        <label for="firstName">*First Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="First Name"
+          name="firstName"
+          formControlName="firstName"
+        />
+        <div
+          *ngIf="
+            AboutForm.get('firstName').invalid &&
+            AboutForm.get('firstName').touched
+          "
+        >
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('firstName').hasError('required')"
+          >
+            <strong>Error!</strong> This field is required.
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('firstName').hasError('minlength')"
+          >
+            <strong>Error!</strong> This field requires minimum 3 characters.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">*Last Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="Last Name"
+          name="lastName"
+          formControlName="lastName"
+        />
+        <div
+          *ngIf="
+            AboutForm.get('lastName').invalid &&
+            AboutForm.get('lastName').touched
+          "
+        >
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('lastName').hasError('required')"
+          >
+            <strong>Error!</strong> This field is required.
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('lastName').hasError('minlength')"
+          >
+            <strong>Error!</strong> This field requires minimum 3 characters.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="designation">*Designation:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="designation"
+          placeholder="Designation"
+          name="designation"
+          formControlName="designation"
+        />
+        <div
+          *ngIf="
+            AboutForm.get('designation').invalid &&
+            AboutForm.get('designation').touched
+          "
+        >
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('designation').hasError('required')"
+          >
+            <strong>Error!</strong> This field is required.
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('designation').hasError('minlength')"
+          >
+            <strong>Error!</strong> This field requires minimum 3 characters.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">*Telephone no:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="phone"
+          placeholder="Enter Telephone"
+          name="telephone"
+          formControlName="telephone"
+        />
+        <div
+          *ngIf="
+            AboutForm.get('telephone').invalid &&
+            AboutForm.get('telephone').touched
+          "
+        >
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('telephone').hasError('required')"
+          >
+            <strong>Error!</strong> This field is required.
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              AboutForm.get('telephone').hasError('min') ||
+              AboutForm.get('telephone').hasError('max')
+            "
+          >
+            <strong>Error!</strong> This field requires exact 10 digits.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">*Email:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          placeholder="Enter Email"
+          name="email"
+          formControlName="email"
+        />
+        <div
+          *ngIf="
+            AboutForm.get('email').invalid && AboutForm.get('email').touched
+          "
+        >
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('email').hasError('required')"
+          >
+            <strong>Error!</strong> This field is required.
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('email').hasError('minlength')"
+          >
+            <strong>Error!</strong> This field requires minimum 6 characters.
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('email').hasError('email')"
+          >
+            <strong>Error!</strong> This field has invalid characters.
+          </div>
+        </div>
+      </div>
+
+      <h2>Describe your profile</h2>
+      <div class="form-group">
+        <label for="profileDesc">*profile Describtion:</label>
+        <textarea
+          class="form-control"
+          id="profileDesc"
+          name="profileDesc"
+          formControlName="profileDesc"
+        >
+        </textarea>
+        <div
+          *ngIf="
+            AboutForm.get('profileDesc').invalid &&
+            AboutForm.get('profileDesc').touched
+          "
+        >
+          <div
+            class="alert alert-danger"
+            *ngIf="AboutForm.get('profileDesc').hasError('required')"
+          >
+            <strong>Error!</strong> This field is required.
+          </div>
+        </div>
+      </div>
+      <h2>Describe key points</h2>
+      <button class="btn btn-primary my-2" (click)="addKey()">+</button>
+      <div
+        class="form-group"
+        formArrayName="profileKeys"
+        *ngFor="let key of profileKeys.controls; let i = index"
+      >
+        <div>
+          <div class="clearfix">
+            <input
+              [formControlName]="i"
+              id="{{ 'key' + i }}"
+              type="text"
+              class="form-control col-md-10 float-left"
+              placeholder="Add key point"
+            />
+            <button
+              class="btn btn-primary float-left mx-2"
+              (click)="removeKey(i)"
+            >
+              -
+            </button>
+          </div>
+          <div
+            *ngIf="
+              profileKeys.controls[i].invalid && profileKeys.controls[i].touched
+            "
+          >
+            <div
+              class="alert alert-danger"
+              *ngIf="profileKeys.controls[i].errors.required"
+            >
+              <strong>Error!</strong> This field is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group clearfix">
+        <button type="submit" class="btn btn-primary" (click)="submitForm()">
+          Preview
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,184 @@
+<div class="d-flex justify-content-center component-margin-top">
+  <div class="container">
+    <h2>Enter work details:</h2>
+    <div>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="isFresherCheck"
+        [(ngModel)]="isFresher"
+      />
+      <label class="form-check-label" for="isFresherCheck">
+        i am a fresher
+      </label>
+    </div>
+    <form [formGroup]="WorkForm">
+      <div *ngIf="!isFresher" formArrayName="employerArr">
+        <button class="btn btn-primary my-2" (click)="addEmployer()">
+          Add Employer
+        </button>
+        <div
+          *ngFor="
+            let key of WorkForm.controls.employerArr['controls'];
+            let j = index
+          "
+          [formGroupName]="j"
+        >
+          <h3>Employer {{ j + 1 }}</h3>
+          <div class="form-group">
+            <label for="startDate">*Start Date:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="{{ 'startDate' + j }}"
+              placeholder="First Name"
+              name="startDate"
+              formControlName="startDate"
+            />
+            <div
+              *ngIf="
+                employerArr.controls[j].get('startDate').invalid &&
+                employerArr.controls[j].get('startDate').touched
+              "
+            >
+              <div
+                class="alert alert-danger"
+                *ngIf="
+                  employerArr.controls[j].get('startDate').hasError('required')
+                "
+              >
+                <strong>Error!</strong> This field is required.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="endDate">*End Date:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="{{ 'endDate' + j }}"
+              placeholder="First Name"
+              name="endDate"
+              formControlName="endDate"
+            />
+            <div
+              *ngIf="
+                employerArr.controls[j].get('endDate').invalid &&
+                employerArr.controls[j].get('endDate').touched
+              "
+            >
+              <div
+                class="alert alert-danger"
+                *ngIf="
+                  employerArr.controls[j].get('endDate').hasError('required')
+                "
+              >
+                <strong>Error!</strong> This field is required.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="role">*Role:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="{{ 'role' + j }}"
+              placeholder="First Name"
+              name="role"
+              formControlName="role"
+            />
+            <div
+              *ngIf="
+                employerArr.controls[j].get('role').invalid &&
+                employerArr.controls[j].get('role').touched
+              "
+            >
+              <div
+                class="alert alert-danger"
+                *ngIf="employerArr.controls[j].get('role').hasError('required')"
+              >
+                <strong>Error!</strong> This field is required.
+              </div>
+              <div
+                class="alert alert-danger"
+                *ngIf="
+                  employerArr.controls[j].get('role').hasError('minlength')
+                "
+              >
+                <strong>Error!</strong> This field requires minimum 3
+                characters.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="employer">*Employer Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="{{ 'employer' + j }}"
+              placeholder="Last Name"
+              name="employer"
+              formControlName="employer"
+            />
+            <div
+              *ngIf="
+                employerArr.controls[j].get('employer').invalid &&
+                employerArr.controls[j].get('employer').touched
+              "
+            >
+              <div
+                class="alert alert-danger"
+                *ngIf="
+                  employerArr.controls[j].get('employer').hasError('required')
+                "
+              >
+                <strong>Error!</strong> This field is required.
+              </div>
+              <div
+                class="alert alert-danger"
+                *ngIf="
+                  employerArr.controls[j].get('employer').hasError('minlength')
+                "
+              >
+                <strong>Error!</strong> This field requires minimum 3
+                characters.
+              </div>
+            </div>
+          </div>
+
+          <h3>Describe key responcibilities</h3>
+          <button class="btn btn-primary my-2" (click)="addKey(j)">+</button>
+          <div
+            class="form-group"
+            formArrayName="profileKeys"
+            *ngFor="
+              let key of WorkForm.get('employerArr')['controls'][j].get(
+                'profileKeys'
+              ).controls;
+              let i = index
+            "
+          >
+            <div>
+              <div class="clearfix">
+                <input
+                  [formControlName]="i"
+                  id="{{ 'key' + j + '' + i }}"
+                  type="text"
+                  class="form-control col-md-10 float-left"
+                  placeholder="Add key point"
+                />
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+      <div class="form-group clearfix">
+        <button type="submit" class="btn btn-primary" (click)="submitForm()">
+          Preview
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

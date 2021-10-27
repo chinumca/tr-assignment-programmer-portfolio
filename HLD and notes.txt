@@ -1,0 +1,47 @@
+below is the HLD plan for resume builder:
+step1:
+	personal details:-
+		name:
+		designation:
+		email:
+		contactNo:
+
+	offer details:-
+		desc:
+		key points[]:
+
+
+step2:
+	education details[]:-
+		year:
+		specialization:
+		collage:
+		City:
+		grade:
+
+step3:
+	work summary[]:-
+		title:
+		desc:
+		key points:
+step4:
+	employer summary[]:-
+		i am frasher (checkbox)
+		this is current employer (checkbox)
+		from date:
+		to date:
+		designation:
+		employer name:
+		summary:
+		
+
+assignement notes:
+below are some key points should be part of assignment but due to time and health issue not implemented same.
+
+- we can use lazy loading for modular structure
+- we can use guards to avoid routes to preview "About Me" and "Work", if user details are not present.
+- interface
+- please ignore linting standards as my editor has some issue with configuration
+- styling can be improved 
+- validations are POCs
+- there are still some issues with business logic as ex. for work timeline, last value in list is not getting. which can be resolved if time permits.
